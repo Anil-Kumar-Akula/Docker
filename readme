@@ -1,0 +1,202 @@
+# Docker-Roboshop
+
+A containerized implementation of the Roboshop microservices application using Docker and Docker Compose. This project demonstrates how to build, secure, and deploy multiple interconnected services in a containerized environment.
+
+## Architecture
+
+The application consists of the following microservices:
+
+- Frontend (Nginx)
+- User Service
+- Catalogue Service
+- Cart Service
+- Shipping Service
+- Payment Service
+- MongoDB
+- MySQL
+- Redis
+- RabbitMQ
+
+## Project Structure
+
+```text
+Docker-Roboshop/
+├── frontend/
+├── user/
+├── catalogue/
+├── cart/
+├── shipping/
+├── payment/
+├── mongodb/
+├── mysql/
+├── docker-compose.yaml
+└── README.md
+```
+
+## Features
+
+- Multi-stage Docker builds
+- Lightweight production images
+- Non-root user implementation
+- Docker networking for service communication
+- Environment variable configuration
+- Docker Compose orchestration
+- Container security best practices
+- Service isolation and scalability
+
+## Prerequisites
+
+- Docker 20+
+- Docker Compose
+- Git
+
+## Clone the Repository
+
+```bash
+git clone https://github.com/Anil-Kumar-Akula/Docker-Roboshop.git
+cd Docker-Roboshop
+```
+
+## Build Images
+
+Build all services:
+
+```bash
+docker compose build
+```
+
+Or build an individual service:
+
+```bash
+docker build -t frontend ./frontend
+docker build -t user ./user
+docker build -t catalogue ./catalogue
+docker build -t cart ./cart
+docker build -t shipping ./shipping
+docker build -t payment ./payment
+```
+
+## Run the Application
+
+Start all services:
+
+```bash
+docker compose up -d
+```
+
+Verify running containers:
+
+```bash
+docker ps
+```
+
+View logs:
+
+```bash
+docker compose logs -f
+```
+
+Stop all services:
+
+```bash
+docker compose down
+```
+
+## Docker Best Practices Implemented
+
+### Multi-Stage Builds
+
+Used for Java and Node.js services to reduce final image size and improve security.
+
+### Non-Root User
+
+Containers run with dedicated application users instead of root.
+
+Example:
+
+```dockerfile
+RUN addgroup -S roboshop && \
+    adduser -S roboshop -G roboshop
+
+USER roboshop
+```
+
+### Optimized Images
+
+- Alpine-based images
+- Separate build and runtime stages
+- Reduced attack surface
+
+## Networking
+
+Docker Compose automatically creates a bridge network allowing services to communicate using service names.
+
+Example:
+
+```text
+cart:8080
+catalogue:8080
+user:8080
+shipping:8080
+mysql
+mongodb
+redis
+rabbitmq
+```
+
+## Environment Variables
+
+Example configuration:
+
+```yaml
+environment:
+  CART_ENDPOINT: cart:8080
+  DB_HOST: mysql
+```
+
+## Useful Commands
+
+### List Containers
+
+```bash
+docker ps
+```
+
+### Inspect Network
+
+```bash
+docker network ls
+docker network inspect <network-name>
+```
+
+### Access a Container
+
+```bash
+docker exec -it <container-name> sh
+```
+
+### View Logs
+
+```bash
+docker logs <container-name>
+```
+
+## Learning Outcomes
+
+This project demonstrates:
+
+- Docker fundamentals
+- Image creation and optimization
+- Multi-stage builds
+- Container networking
+- Docker Compose orchestration
+- Security best practices
+- Microservices deployment
+
+## Author
+
+**Anil Kumar Akula**
+
+- AWS DevOps Professional Certified
+- DevOps & Cloud Enthusiast
+
